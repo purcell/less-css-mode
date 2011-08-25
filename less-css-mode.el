@@ -95,7 +95,7 @@ HYPERLINK HIGHLIGHT)"
 (define-derived-mode less-css-mode css-mode "LESS"
   "Major mode for editing LESS files, http://lesscss.org/
 Special commands:
-\\{scss-mode-map}"
+\\{less-css-mode-map}"
   (font-lock-add-keywords nil less-css-font-lock-keywords)
   (add-to-list 'compilation-error-regexp-alist less-css-compile-error-regex)
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
