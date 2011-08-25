@@ -1,8 +1,11 @@
 ;;; less-css-mode.el --- Major mode for editing LESS CSS files (lesscss.org)
 ;;
-;; Author: Steve Purcell <steve@sanityinc.com> - http://www.sanityinc.com
+;; Copyright 2011 Steve Purcell
+;;
+;; Author: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/less-css-mode
 ;; Keywords: less css mode
+;; Version: 0.1
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
