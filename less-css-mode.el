@@ -113,6 +113,7 @@ HYPERLINK HIGHLIGHT)"
   (save-excursion
     (beginning-of-line)
     (let ((indent-level 0))
+      (when (looking-at "[ \t]*}") (setq indent-level (- indent-level 1)))
       (while (not (bobp))
         ;; TODO search backwards
         (backward-char)
