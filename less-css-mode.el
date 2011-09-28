@@ -32,6 +32,10 @@
 ;; (setq exec-path (cons (expand-file-name "~/.gem/ruby/1.8/bin") exec-path))
 ;; or customize `less-css-lessc-command' to point to your "lessc" executable.
 ;;
+;; `less-css-mode' is derived from `css-mode', and indentation of
+;; nested blocks may not work correctly with versions of `css-mode'
+;; other than that bundled with recent Emacs.
+;;
 ;;; Credits
 ;;
 ;; This mode was, in large part, built using Anton Johansson's
