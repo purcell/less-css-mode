@@ -52,6 +52,10 @@
   :prefix "less-css-"
   :group 'css)
 
+(defcustom less-css-indent-level 2
+  "Number of spacnes to indent inside a block."
+  :group 'less-css)
+
 (defcustom less-css-lessc-command "lessc"
   "Command used to compile LESS files, should be lessc or the
   complete path to your lessc runnable example:
@@ -98,6 +102,29 @@ HYPERLINK HIGHLIGHT)"
   (compile (concat less-css-lessc-command " " (mapconcat 'identity less-css-lessc-options " ") " "
                    "'" buffer-file-name "' '" (file-name-sans-extension buffer-file-name) ".css'")))
 
+(defun less-css-indent-line ()
+  "Indent current line of Less CSS."
+  (interactive)
+  (let ((savep (> (current-column) (current-indentation)))
+        (indent (condition-case nil (* less-css-indent-level (max (less-css-calculate-indentation) 0))
+                  (error 0))))
+    (if savep
+        (save-excursion (indent-line-to indent))
+      (indent-line-to indent))))
+
+(defun less-css-calculate-indentation ()
+  "Return the column to which the current line should be indented."
+  (save-excursion
+    (beginning-of-line)
+    (let ((indent-level 0))
+      (when (looking-at "[ \t]*}") (setq indent-level (- indent-level 1)))
+      (while (not (bobp))
+        ;; TODO search backwards
+        (backward-char)
+        (cond ((looking-at "{") (setq indent-level (+ 1 indent-level)))
+              ((looking-at "}") (setq indent-level (- indent-level 1)))))
+      indent-level)))
+
 ;;;###autoload
 (define-derived-mode less-css-mode css-mode "LESS"
   "Major mode for editing LESS files, http://lesscss.org/
@@ -105,6 +132,7 @@ Special commands:
 \\{less-css-mode-map}"
   (font-lock-add-keywords nil less-css-font-lock-keywords)
   (add-to-list 'compilation-error-regexp-alist less-css-compile-error-regex)
+  (set (make-local-variable 'indent-line-function) 'less-css-indent-line)
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
 (define-key less-css-mode-map "\C-c\C-c" 'less-css-compile)
