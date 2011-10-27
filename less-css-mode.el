@@ -81,8 +81,6 @@ HYPERLINK HIGHLIGHT)"
 (defconst less-css-font-lock-keywords
   '(;; Variables
     ("@[a-z_-][a-z-_0-9]*" . font-lock-constant-face)
-    ;; Extended single-line comment syntax
-    ("//.*$" . font-lock-comment-face)
     ;; Mixins
     ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
   )
@@ -104,6 +102,10 @@ HYPERLINK HIGHLIGHT)"
 Special commands:
 \\{less-css-mode-map}"
   (font-lock-add-keywords nil less-css-font-lock-keywords)
+  ;; cpp-style comments
+  (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
+  (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
+
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
 (define-key less-css-mode-map "\C-c\C-c" 'less-css-compile)
