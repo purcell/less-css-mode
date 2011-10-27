@@ -104,10 +104,11 @@ HYPERLINK HIGHLIGHT)"
 Special commands:
 \\{less-css-mode-map}"
   (font-lock-add-keywords nil less-css-font-lock-keywords)
-  (add-to-list 'compilation-error-regexp-alist less-css-compile-error-regex)
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
 (define-key less-css-mode-map "\C-c\C-c" 'less-css-compile)
+
+(add-to-list 'compilation-error-regexp-alist 'less-css-compile-error-regex)
 
 (defun flymake-less-css-init ()
   "Flymake support for LESS files"
