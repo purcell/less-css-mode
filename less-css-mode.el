@@ -38,8 +38,9 @@
 ;;
 ;;; Credits
 ;;
-;; This mode was, in large part, built using Anton Johansson's
-;; scss-mode as a template -- thanks Anton! https://github.com/antonj
+;; The original code for this mode was, in large part, written using
+;; Anton Johansson's scss-mode as a template -- thanks Anton!
+;; https://github.com/antonj
 ;;
 ;;; Code:
 
@@ -54,26 +55,30 @@
 
 (defcustom less-css-lessc-command "lessc"
   "Command used to compile LESS files, should be lessc or the
-  complete path to your lessc runnable example:
+  complete path to your lessc executable, e.g.:
   \"~/.gem/ruby/1.8/bin/lessc\""
   :group 'less-css)
 
 (defcustom less-css-compile-at-save nil
-  "If not nil the LESS buffers will be compiled after each save"
+  "If non-nil, the LESS buffers will be compiled to CSS after each save"
   :type 'boolean
   :group 'less-css)
 
 (defcustom less-css-lessc-options '()
-  "Command line Options for less executable."
+  "Command line options for less executable.
+
+Use \"-x\" to minify output."
+  :type '(repeat string)
   :group 'less-css)
 
 (defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ ]+\\)$")
 
 (defcustom less-css-compile-error-regex (list (concat "\\(" less-css-default-error-regex "\\)") 3 2 nil nil 1)
-  "Regex for finding line number file and error message in
-compilation buffers, syntax from
-`compilation-error-regexp-alist' (REGEXP FILE LINE COLUMN TYPE
-HYPERLINK HIGHLIGHT)"
+  "Regex for finding line number file and error message in compilation buffers.
+
+This uses the same syntax as `compilation-error-regexp-alist'."
+  :type '(repeat (choice (symbol :tag "Predefined symbol")
+                         (sexp :tag "Error specification")))
   :group 'less-css)
 
 
@@ -85,16 +90,22 @@ HYPERLINK HIGHLIGHT)"
     ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
   )
 
-(defun less-css-compile-maybe()
+(defun less-css-compile-maybe ()
   "Runs `less-css-compile' on if `less-css-compile-at-save' is t"
   (if less-css-compile-at-save
       (less-css-compile)))
 
-(defun less-css-compile()
-  "Compiles the current buffer, lessc filename.less"
+(defun less-css-compile ()
+  "Compiles the current buffer to css using `less-css-lessc-command'."
   (interactive)
-  (compile (concat less-css-lessc-command " " (mapconcat 'identity less-css-lessc-options " ") " "
-                   "'" buffer-file-name "' '" (file-name-sans-extension buffer-file-name) ".css'")))
+  (message "Compiling less to css")
+  (compile
+   (mapconcat 'shell-quote-argument
+              (append (list less-css-lessc-command)
+                      less-css-lessc-options
+                      (list buffer-file-name
+                            (concat (file-name-sans-extension buffer-file-name) ".css")))
+              " ")))
 
 ;;;###autoload
 (define-derived-mode less-css-mode css-mode "LESS"
