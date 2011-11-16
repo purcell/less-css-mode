@@ -127,6 +127,7 @@ This uses the same syntax as `compilation-error-regexp-alist'."
                         (concat (file-name-nondirectory (file-name-sans-extension buffer-file-name)) ".css"))
                     (or less-css-output-directory default-directory)))
 
+;;;###autoload
 (defun less-css-compile ()
   "Compiles the current buffer to css using `less-css-lessc-command'."
   (interactive)
@@ -154,6 +155,7 @@ Special commands:
 
 (add-to-list 'compilation-error-regexp-alist 'less-css-compile-error-regex)
 
+;;;###autoload
 (defun flymake-less-css-init ()
   "Flymake support for LESS files"
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
