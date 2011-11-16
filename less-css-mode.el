@@ -36,6 +36,12 @@
 ;; nested blocks may not work correctly with versions of `css-mode'
 ;; other than that bundled with recent Emacs.
 ;;
+;; You can specify per-file values for `less-css-compile-at-save',
+;; `less-css-output-file-name' or `less-css-output-directory' using a
+;; variables header at the top of your .less file, e.g.:
+;;
+;; // -*- less-css-compile-at-save: t; less-css-output-directory: "../css" -*-
+;;
 ;;; Credits
 ;;
 ;; The original code for this mode was, in large part, written using
@@ -71,6 +77,26 @@ Use \"-x\" to minify output."
   :type '(repeat string)
   :group 'less-css)
 
+(defvar less-css-output-directory nil
+  "Directory in which to save CSS, or nil to use the LESS file's directory.
+
+This path is expanded relative to the directory of the LESS file
+using `expand-file-name', so both relative and absolute paths
+will work as expected.")
+
+(make-variable-buffer-local 'less-css-output-directory)
+
+(defvar less-css-output-file-name nil
+  "File name in which to save CSS, or nil to use <name>.css for <name>.less.
+
+This can be also be set to a full path, or a relative path.  If
+the path is relative, it will be relative to the value of
+`less-css-output-dir', if set, or the current directory by
+default.")
+
+(make-variable-buffer-local 'less-css-output-file-name)
+
+
 (defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ ]+\\)$")
 
 (defcustom less-css-compile-error-regex (list (concat "\\(" less-css-default-error-regex "\\)") 3 2 nil nil 1)
@@ -95,6 +121,12 @@ This uses the same syntax as `compilation-error-regexp-alist'."
   (if less-css-compile-at-save
       (less-css-compile)))
 
+(defun less-css--output-path ()
+  "Calculate the path for the compiled CSS file created by `less-css-compile'."
+  (expand-file-name (or less-css-output-file-name
+                        (concat (file-name-nondirectory (file-name-sans-extension buffer-file-name)) ".css"))
+                    (or less-css-output-directory default-directory)))
+
 (defun less-css-compile ()
   "Compiles the current buffer to css using `less-css-lessc-command'."
   (interactive)
@@ -103,8 +135,7 @@ This uses the same syntax as `compilation-error-regexp-alist'."
    (mapconcat 'shell-quote-argument
               (append (list less-css-lessc-command)
                       less-css-lessc-options
-                      (list buffer-file-name
-                            (concat (file-name-sans-extension buffer-file-name) ".css")))
+                      (list buffer-file-name (less-css--output-path)))
               " ")))
 
 ;;;###autoload
