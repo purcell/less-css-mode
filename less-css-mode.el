@@ -102,25 +102,17 @@ default.")
 
 (make-variable-buffer-local 'less-css-output-file-name)
 
-
 (defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ ]+\\)$")
 
-(defcustom less-css-compile-error-regex (list (concat "\\(" less-css-default-error-regex "\\)") 3 2 nil nil 1)
-  "Regex for finding line number file and error message in compilation buffers.
 
-This uses the same syntax as `compilation-error-regexp-alist'."
-  :type '(repeat (choice (symbol :tag "Predefined symbol")
-                         (sexp :tag "Error specification")))
-  :group 'less-css)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compilation to CSS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-to-list 'compilation-error-regexp-alist-alist
+             (list 'less-css (concat "\\(" less-css-default-error-regex "\\)") 3 2 nil nil 1))
+(add-to-list 'compilation-error-regexp-alist 'less-css)
 
-;; TODO: '&', interpolation, escaped values (~"..."), JS eval (~`...`), custom faces
-(defconst less-css-font-lock-keywords
-  '(;; Variables
-    ("@[a-z_-][a-z-_0-9]*" . font-lock-constant-face)
-    ;; Mixins
-    ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
-  )
 
 (defun less-css-compile-maybe ()
   "Runs `less-css-compile' on if `less-css-compile-at-save' is t"
@@ -145,6 +137,18 @@ This uses the same syntax as `compilation-error-regexp-alist'."
                       (list buffer-file-name (less-css--output-path)))
               " ")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Minor mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TODO: '&', interpolation, escaped values (~"..."), JS eval (~`...`), custom faces
+(defconst less-css-font-lock-keywords
+  '(;; Variables
+    ("@[a-z_-][a-z-_0-9]*" . font-lock-constant-face)
+    ;; Mixins
+    ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
+  )
+
 ;;;###autoload
 (define-derived-mode less-css-mode css-mode "LESS"
   "Major mode for editing LESS files, http://lesscss.org/
@@ -159,7 +163,13 @@ Special commands:
 
 (define-key less-css-mode-map "\C-c\C-c" 'less-css-compile)
 
-(add-to-list 'compilation-error-regexp-alist 'less-css-compile-error-regex)
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.less" . less-css-mode))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Wiring for `flymake-mode'
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;###autoload
 (defun flymake-less-css-init ()
@@ -175,8 +185,6 @@ Special commands:
 
 (push (list less-css-default-error-regex 2 1 nil 2) flymake-err-line-patterns)
 
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.less" . less-css-mode))
 
 (provide 'less-css-mode)
 ;;; less-css-mode.el ends here
