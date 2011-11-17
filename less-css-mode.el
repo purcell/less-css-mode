@@ -20,9 +20,9 @@
 ;;; Commentary:
 ;;
 ;; This mode provides syntax highlighting for LESS CSS files, plus
-;; optional support for flymake and compilation of .less files to .css
-;; files at the time they are saved: use `less-css-compile-at-save' to
-;; enable the latter.
+;; optional support for `flymake-mode' and compilation of .less files
+;; to .css files at the time they are saved: use
+;; `less-css-compile-at-save' to enable the latter.
 ;;
 ;; Command line utility "lessc" is required if enabling flymake or
 ;; setting `less-css-compile-at-save' to t.  To install "lessc" using
@@ -41,6 +41,12 @@
 ;; variables header at the top of your .less file, e.g.:
 ;;
 ;; // -*- less-css-compile-at-save: t; less-css-output-directory: "../css" -*-
+;;
+;; If you don't need CSS output but would like to be warned of any
+;; syntax errors in your .less source, enable `flymake-mode': support
+;; is provided for .less files, but note that the less compiler is a
+;; little slow, so there can be a delay of several seconds between
+;; editing and receiving feedback on any error.
 ;;
 ;;; Credits
 ;;
