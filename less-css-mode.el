@@ -141,10 +141,11 @@ default.")
 ;; Minor mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO: '&', interpolation, escaped values (~"..."), JS eval (~`...`), custom faces
+;; TODO: interpolation ("@{val}"), escaped values (~"..."), JS eval (~`...`), custom faces
 (defconst less-css-font-lock-keywords
   '(;; Variables
     ("@[a-z_-][a-z-_0-9]*" . font-lock-constant-face)
+    ("&" . font-lock-preprocessor-face)
     ;; Mixins
     ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
   )
