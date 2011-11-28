@@ -159,6 +159,8 @@ Special commands:
   ;; cpp-style comments
   (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
+  (set (make-local-variable 'comment-start) "//")
+  (set (make-local-variable 'comment-end) "")
 
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
