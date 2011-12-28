@@ -160,7 +160,9 @@ Special commands:
   (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
   (set (make-local-variable 'comment-start) "//")
+  (set (make-local-variable 'comment-start-skip) "//[ \t]*")
   (set (make-local-variable 'comment-end) "")
+  (set (make-local-variable 'comment-end-skip) "")
 
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
