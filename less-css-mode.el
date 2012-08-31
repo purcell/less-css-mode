@@ -150,6 +150,11 @@ default.")
     ("\\(?:[ \t{;]\\|^\\)\\(\\.[a-z_-][a-z-_0-9]*\\)[ \t]*;" . (1 font-lock-keyword-face)))
   )
 
+(defun less-css-indent-line ()
+  "Indent current line according to LESS CSS indentation rules."
+  (let ((css-navigation-syntax-table less-css-mode-syntax-table))
+    (css-indent-line)))
+
 ;;;###autoload
 (define-derived-mode less-css-mode css-mode "LESS"
   "Major mode for editing LESS files, http://lesscss.org/
@@ -161,6 +166,7 @@ Special commands:
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
   (set (make-local-variable 'comment-start) "//")
   (set (make-local-variable 'comment-end) "")
+  (set (make-local-variable 'indent-line-function) 'less-css-indent-line)
 
   (add-hook 'after-save-hook 'less-css-compile-maybe nil t))
 
