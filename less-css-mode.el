@@ -131,10 +131,12 @@ default.")
   (interactive)
   (message "Compiling less to css")
   (compile
-   (mapconcat 'shell-quote-argument
-              (append (list less-css-lessc-command)
+   (mapconcat 'identity
+              (append (list (shell-quote-argument less-css-lessc-command))
                       less-css-lessc-options
-                      (list buffer-file-name (less-css--output-path)))
+                      (list (shell-quote-argument buffer-file-name)
+                            ">"
+                            (shell-quote-argument (less-css--output-path))))
               " ")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
