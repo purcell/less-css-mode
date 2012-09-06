@@ -102,7 +102,7 @@ default.")
 
 (make-variable-buffer-local 'less-css-output-file-name)
 
-(defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ ]+\\)$")
+(defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ \r\n\t\e]+\\)")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
