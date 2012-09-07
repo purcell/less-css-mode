@@ -164,7 +164,7 @@ Special commands:
 \\{less-css-mode-map}"
   (font-lock-add-keywords nil less-css-font-lock-keywords)
   ;; cpp-style comments
-  (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
+  (modify-syntax-entry ?/ ". 124b" less-css-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
   ;; Special chars that sometimes come at the beginning of words.
   (modify-syntax-entry ?. "'" less-css-mode-syntax-table)
