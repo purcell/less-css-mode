@@ -166,6 +166,9 @@ Special commands:
   ;; cpp-style comments
   (modify-syntax-entry ?/ "< 124b" less-css-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" less-css-mode-syntax-table)
+  ;; Special chars that sometimes come at the beginning of words.
+  (modify-syntax-entry ?. "'" less-css-mode-syntax-table)
+
   (set (make-local-variable 'comment-start) "//")
   (set (make-local-variable 'comment-end) "")
   (set (make-local-variable 'indent-line-function) 'less-css-indent-line)
