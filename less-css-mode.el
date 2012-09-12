@@ -59,6 +59,7 @@
 (require 'derived)
 (require 'compile)
 (require 'flymake)
+(require 'css-mode)
 
 (defgroup less-css nil
   "Less-css mode"
