@@ -60,6 +60,14 @@
 (require 'compile)
 (require 'flymake)
 
+;; There are at least three css-mode.el implementations, but we need
+;; the right one in order to work as expected, not the versions by
+;; Landström or Garshol
+
+(require 'css-mode)
+(unless (boundp 'css-navigation-syntax-table)
+  (error "Wrong css-mode.el: please use the version by Stefan Monnier, bundled with Emacs >= 23."))
+
 (defgroup less-css nil
   "Less-css mode"
   :prefix "less-css-"
