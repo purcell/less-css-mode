@@ -59,6 +59,7 @@
 (require 'derived)
 (require 'compile)
 (require 'flymake)
+(require 'css-mode)
 
 ;; There are at least three css-mode.el implementations, but we need
 ;; the right one in order to work as expected, not the versions by
