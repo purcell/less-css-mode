@@ -110,7 +110,8 @@ default.")
 
 (make-variable-buffer-local 'less-css-output-file-name)
 
-(defconst less-css-default-error-regex "Syntax Error on line \\([0-9]+\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ \r\n\t\e]+\\)")
+(defconst less-css-default-error-regex
+  "\e\\[31m\\(.*\\)\e\\[39m\e\\[31m in \e\\[39m\\([^ \r\n\t\e]+\\)\e\\[90m:\\([0-9]+\\):\\([0-9]+\\)")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -118,7 +119,7 @@ default.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'compilation-error-regexp-alist-alist
-             (list 'less-css (concat "\\(" less-css-default-error-regex "\\)") 3 2 nil nil 1))
+             (list 'less-css less-css-default-error-regex 2 3 4 nil 1))
 (add-to-list 'compilation-error-regexp-alist 'less-css)
 
 
@@ -206,7 +207,7 @@ Special commands:
 
 (push '(".+\\.less$" flymake-less-css-init) flymake-allowed-file-name-masks)
 
-(push (list less-css-default-error-regex 2 1 nil 2) flymake-err-line-patterns)
+(push (list less-css-default-error-regex 2 3 4 1) flymake-err-line-patterns)
 
 
 (provide 'less-css-mode)
