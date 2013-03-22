@@ -134,6 +134,12 @@ default.")
                         (concat (file-name-nondirectory (file-name-sans-extension buffer-file-name)) ".css"))
                     (or less-css-output-directory default-directory)))
 
+(defun less-css--maybe-shell-quote-command (command)
+  "Selectively shell-quote COMMAND appropriately for `system-type'."
+  (funcall (if (eq system-type 'windows-nt)
+               'identity
+             'shell-quote-argument) command))
+
 ;;;###autoload
 (defun less-css-compile ()
   "Compiles the current buffer to css using `less-css-lessc-command'."
@@ -141,7 +147,7 @@ default.")
   (message "Compiling less to css")
   (compile
    (mapconcat 'identity
-              (append (list (shell-quote-argument less-css-lessc-command))
+              (append (list (less-css--maybe-shell-quote-command less-css-lessc-command))
                       less-css-lessc-options
                       (list (shell-quote-argument buffer-file-name)
                             ">"
