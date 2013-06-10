@@ -1,0 +1,10 @@
+[31mParseError: missing opening `{`[39m[31m in [39m/Users/steve/Projects/foo/public/stylesheets/application.less[90m on line 798, column 1:[39m
+[90m797   }[39m
+798 [7m[31m[1m}[22m[39m[27m[0m[0m
+
+NameError: variable @red is undefined in /home/wilfred/scratch/foo.less:4:11
+
+FileError: 'noexist.less' wasn't found.
+ in /home/wilfred/scratch/foo.less:1:0
+
+NameError: variable @red is undefined in /home/wilfred/scratch/foo.less on line 4, column 12:
