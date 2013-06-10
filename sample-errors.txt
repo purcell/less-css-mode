@@ -1,3 +1,7 @@
+ParseError: missing opening `{` in /Users/steve/Projects/foo/public/stylesheets/application.less on line 799, column 1:
+798   }
+799 }
+
 [31mParseError: missing opening `{`[39m[31m in [39m/Users/steve/Projects/foo/public/stylesheets/application.less[90m on line 798, column 1:[39m
 [90m797   }[39m
 798 [7m[31m[1m}[22m[39m[27m[0m[0m
