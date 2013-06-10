@@ -2,8 +2,9 @@ Emacs support for LESS CSS (lesscss.org)
 ========================================
 
 This package contains less-css-mode.el, which provides an Emacs mode
-for LESS CSS (lesscss.org), complete with optional support for flymake
-and compile-on-save.
+for LESS CSS (lesscss.org), complete with support for compile-on-save.
+
+For flymake support, see [flymake-less](https://github.com/purcell/flymake-less).
 
 Please see documentation in less-css-mode.el
 
