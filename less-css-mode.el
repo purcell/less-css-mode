@@ -24,13 +24,17 @@
 ;; to .css files at the time they are saved: use
 ;; `less-css-compile-at-save' to enable the latter.
 ;;
-;; Command line utility "lessc" is required if enabling flymake or
-;; setting `less-css-compile-at-save' to t.  To install "lessc" using
-;; the Node.js package manager, run "npm install less"
+;; Command line utility "lessc" is required if setting
+;; `less-css-compile-at-save' to t.  To install "lessc" using the
+;; Node.js package manager, run "npm install less"
 ;;
 ;; Also make sure the "lessc" executable is in emacs' PATH, example:
 ;; (setq exec-path (cons (expand-file-name "~/.gem/ruby/1.8/bin") exec-path))
 ;; or customize `less-css-lessc-command' to point to your "lessc" executable.
+;;
+;; We target lessc >= 1.4.0, and thus use the `--no-color' flag by
+;; default.  You may want to adjust `less-css-lessc-options' for
+;; compatibility with older versions.
 ;;
 ;; `less-css-mode' is derived from `css-mode', and indentation of
 ;; nested blocks may not work correctly with versions of `css-mode'
@@ -81,7 +85,7 @@
   :type 'boolean
   :group 'less-css)
 
-(defcustom less-css-lessc-options '()
+(defcustom less-css-lessc-options '("--no-color")
   "Command line options for less executable.
 
 Use \"-x\" to minify output."
