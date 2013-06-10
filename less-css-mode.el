@@ -5,6 +5,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/less-css-mode
 ;; Keywords: less css mode
+;; Package-Requires: ((flymake-easy "0.8"))
 ;; Version: DEV
 ;;
 ;; This program is free software; you can redistribute it and/or
@@ -58,7 +59,7 @@
 
 (require 'derived)
 (require 'compile)
-(require 'flymake)
+(require 'flymake-easy)
 
 ;; There are at least three css-mode.el implementations, but we need
 ;; the right one in order to work as expected, not the versions by
@@ -201,19 +202,22 @@ Special commands:
 ;; Wiring for `flymake-mode'
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun flymake-less-css-command (filename)
+  "Construct a command that flymake can use to check less syntax at FILENAME."
+  (cons less-css-lessc-command (append less-css-lessc-options (list filename))))
+
+(defconst flymake-less-css-err-line-patterns
+  (list (list less-css-default-error-regex 2 3 4 1)))
+
 ;;;###autoload
 (defun flymake-less-css-init ()
   "Flymake support for LESS files"
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-         (local-file  (file-relative-name
-                       temp-file
-                       (file-name-directory buffer-file-name))))
-    (list less-css-lessc-command (append less-css-lessc-options (list local-file)))))
-
-(push '(".+\\.less$" flymake-less-css-init) flymake-allowed-file-name-masks)
-
-(push (list less-css-default-error-regex 2 3 4 1) flymake-err-line-patterns)
+  (interactive)
+  (flymake-easy-load
+   'flymake-less-css-command
+   flymake-less-css-err-line-patterns
+   'tempdir
+   "less"))
 
 
 (provide 'less-css-mode)
