@@ -195,7 +195,7 @@ Special commands:
     (css-indent-line)))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.less" . less-css-mode))
+(add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
 
 
 (provide 'less-css-mode)
