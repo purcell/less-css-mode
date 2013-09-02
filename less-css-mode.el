@@ -66,7 +66,8 @@
 ;; Landström or Garshol
 
 (require 'css-mode)
-(unless (boundp 'css-navigation-syntax-table)
+(unless (or (boundp 'css-navigation-syntax-table)
+            (functionp 'css-smie-rules))
   (error "Wrong css-mode.el: please use the version by Stefan Monnier, bundled with Emacs >= 23."))
 
 (defgroup less-css nil
