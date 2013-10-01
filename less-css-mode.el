@@ -20,9 +20,9 @@
 ;;; Commentary:
 ;;
 ;; This mode provides syntax highlighting for LESS CSS files, plus
-;; optional support for `flymake-mode' and compilation of .less files
-;; to .css files at the time they are saved: use
-;; `less-css-compile-at-save' to enable the latter.
+;; optional support for compilation of .less files to .css files at
+;; the time they are saved: use `less-css-compile-at-save' to enable
+;; this.
 ;;
 ;; Command line utility "lessc" is required if setting
 ;; `less-css-compile-at-save' to t.  To install "lessc" using the
