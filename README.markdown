@@ -7,6 +7,9 @@ for LESS CSS (lesscss.org), complete with support for compile-on-save.
 For flymake support, see [flymake-less](https://github.com/purcell/flymake-less),
 though you should really use [flycheck](https://github.com/lunaryorn/flycheck) instead.
 
+If you'd like Emacs to make your browser magically reload your LESS
+stylesheets, consider using [skewer-less](https://github.com/purcell/skewer-less).
+
 Please see documentation in less-css-mode.el
 
 <hr>
