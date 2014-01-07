@@ -112,6 +112,18 @@ default.")
 
 (make-variable-buffer-local 'less-css-output-file-name)
 
+(defvar less-css-input-file-name nil
+  "File name which will be compiled to css
+
+When the current buffer is saved `less-css-input-file-name' file will be compiled
+to css instead of the current file.
+
+This can be also be set to a full path, or a relative path. If
+the path is relative, it will be relative to the the current directory by
+default.")
+
+(make-variable-buffer-local 'less-css-input-file-name)
+
 (defconst less-css-default-error-regex
   "^\\(?:\e\\[31m\\)?\\([^\e\n]*\\|FileError:.*\n\\)\\(?:\e\\[39m\e\\[31m\\)? in \\(?:\e\\[39m\\)?\\([^ \r\n\t\e]+\\)\\(?:\e\\[90m\\)?\\(?::\\| on line \\)\\([0-9]+\\)\\(?::\\|, column \\)\\([0-9]+\\):?\\(?:\e\\[39m\\)?")
 
@@ -151,7 +163,8 @@ default.")
    (mapconcat 'identity
               (append (list (less-css--maybe-shell-quote-command less-css-lessc-command))
                       less-css-lessc-options
-                      (list (shell-quote-argument buffer-file-name)
+                      (list (shell-quote-argument
+                             (or less-css-input-file-name buffer-file-name))
                             ">"
                             (shell-quote-argument (less-css--output-path))))
               " ")))
