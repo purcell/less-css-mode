@@ -159,7 +159,7 @@ default.")
   "Compiles the current buffer to css using `less-css-lessc-command'."
   (interactive)
   (message "Compiling less to css")
-  (compile
+  (shell-command
    (mapconcat 'identity
               (append (list (less-css--maybe-shell-quote-command less-css-lessc-command))
                       less-css-lessc-options
