@@ -150,7 +150,7 @@ default.
 
 
 (defun less-css-compile-maybe ()
-  "Runs `less-css-compile' if `less-css-compile-at-save' is t"
+  "Run `less-css-compile' if `less-css-compile-at-save' is non-nil."
   (if less-css-compile-at-save
       (less-css-compile)))
 
