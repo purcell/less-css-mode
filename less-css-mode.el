@@ -46,6 +46,11 @@
 ;;
 ;; // -*- less-css-compile-at-save: t; less-css-output-directory: "../css" -*-
 ;;
+;; In the case of files which are included in other .less files, you
+;; may want to trigger the compilation of a "master" .less file on
+;; save: you can accomplish this with `less-css-input-file-name',
+;; which is probably best set using directory local variables.
+;;
 ;; If you don't need CSS output but would like to be warned of any
 ;; syntax errors in your .less source, consider using `flymake-less':
 ;; https://github.com/purcell/flymake-less
@@ -113,14 +118,21 @@ default.")
 (make-variable-buffer-local 'less-css-output-file-name)
 
 (defvar less-css-input-file-name nil
-  "File name which will be compiled to css
+  "File name which will be compiled to CSS.
 
 When the current buffer is saved `less-css-input-file-name' file will be compiled
 to css instead of the current file.
 
+Set this in order to trigger compilation of a \"master\" .less
+file which includes the current file.  The best way to set this
+variable in most cases is likely to be via directory local
+variables.
+
 This can be also be set to a full path, or a relative path. If
 the path is relative, it will be relative to the the current directory by
-default.")
+default.
+
+")
 
 (make-variable-buffer-local 'less-css-input-file-name)
 
