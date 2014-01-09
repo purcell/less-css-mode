@@ -84,6 +84,7 @@
   "Command used to compile LESS files, should be lessc or the
   complete path to your lessc executable, e.g.:
   \"~/.gem/ruby/1.8/bin/lessc\""
+  :type 'file
   :group 'less-css)
 
 (defcustom less-css-compile-at-save nil
