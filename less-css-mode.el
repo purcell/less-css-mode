@@ -99,6 +99,15 @@ Use \"-x\" to minify output."
   :type '(repeat string)
   :group 'less-css)
 
+(defcustom less-css-default-output-directory nil
+  "Default directory in which to save CSS, or nil to use the LESS file's directory.
+
+This path is expanded relative to the directory of the LESS file
+using `expand-file-name', so both relative and absolute paths
+will work as expected."
+  :type 'string
+  :group 'less-css)
+
 (defvar less-css-output-directory nil
   "Directory in which to save CSS, or nil to use the LESS file's directory.
 
@@ -159,7 +168,7 @@ default.
   "Calculate the path for the compiled CSS file created by `less-css-compile'."
   (expand-file-name (or less-css-output-file-name
                         (concat (file-name-nondirectory (file-name-sans-extension buffer-file-name)) ".css"))
-                    (or less-css-output-directory default-directory)))
+                    (or less-css-default-output-directory less-css-output-directory default-directory)))
 
 (defun less-css--maybe-shell-quote-command (command)
   "Selectively shell-quote COMMAND appropriately for `system-type'."
