@@ -46,6 +46,9 @@
 ;;
 ;; // -*- less-css-compile-at-save: t; less-css-output-directory: "../css" -*-
 ;;
+;; Alternatively, you can use directory local variables to set the
+;; default value of `less-css-output-directory' for your project.
+;;
 ;; In the case of files which are included in other .less files, you
 ;; may want to trigger the compilation of a "master" .less file on
 ;; save: you can accomplish this with `less-css-input-file-name',
