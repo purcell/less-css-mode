@@ -89,11 +89,13 @@
   \"~/.gem/ruby/1.8/bin/lessc\""
   :type 'file
   :group 'less-css)
+(put 'less-css-lessc-command 'safe-local-variable t)
 
 (defcustom less-css-compile-at-save nil
   "If non-nil, the LESS buffers will be compiled to CSS after each save"
   :type 'boolean
   :group 'less-css)
+(put 'less-css-compile-at-save 'safe-local-variable t)
 
 (defcustom less-css-lessc-options '("--no-color")
   "Command line options for less executable.
@@ -101,6 +103,7 @@
 Use \"-x\" to minify output."
   :type '(repeat string)
   :group 'less-css)
+(put 'less-css-compile-at-save 'safe-local-variable t)
 
 (defvar less-css-output-directory nil
   "Directory in which to save CSS, or nil to use the LESS file's directory.
