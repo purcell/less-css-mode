@@ -1,5 +1,5 @@
-[![Melpa Status](http://melpa.milkbox.net/packages/less-css-mode-badge.svg)](http://melpa.milkbox.net/#/less-css-mode)
-[![Melpa Stable Status](http://melpa-stable.milkbox.net/packages/less-css-mode-badge.svg)](http://melpa-stable.milkbox.net/#/less-css-mode)
+[![Melpa Status](http://melpa.org/packages/less-css-mode-badge.svg)](http://melpa.org/#/less-css-mode)
+[![Melpa Stable Status](http://stable.melpa.org/packages/less-css-mode-badge.svg)](http://stable.melpa.org/#/less-css-mode)
 
 Emacs support for LESS CSS (lesscss.org)
 ========================================
