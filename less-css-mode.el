@@ -227,7 +227,9 @@ Special commands:
 (defun less-css-indent-line ()
   "Indent current line according to LESS CSS indentation rules."
   (let ((css-navigation-syntax-table less-css-mode-syntax-table))
-    (css-indent-line)))
+    (if (fboundp 'css-indent-line)
+        (css-indent-line)
+      (smie-indent-line))))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
