@@ -76,7 +76,7 @@
 (require 'css-mode)
 (unless (or (boundp 'css-navigation-syntax-table)
             (functionp 'css-smie-rules))
-  (error "Wrong css-mode.el: please use the version by Stefan Monnier, bundled with Emacs >= 23."))
+  (error "Wrong css-mode.el: please use the version by Stefan Monnier, bundled with Emacs >= 23"))
 
 (defgroup less-css nil
   "Less-css mode"
@@ -84,15 +84,15 @@
   :group 'css)
 
 (defcustom less-css-lessc-command "lessc"
-  "Command used to compile LESS files, should be lessc or the
-  complete path to your lessc executable, e.g.:
-  \"~/.gem/ruby/1.8/bin/lessc\""
+  "Command used to compile LESS files.
+Should be lessc or the complete path to your lessc executable,
+  e.g.: \"~/.gem/ruby/1.8/bin/lessc\""
   :type 'file
   :group 'less-css)
 (put 'less-css-lessc-command 'safe-local-variable t)
 
 (defcustom less-css-compile-at-save nil
-  "If non-nil, the LESS buffers will be compiled to CSS after each save"
+  "If non-nil, the LESS buffers will be compiled to CSS after each save."
   :type 'boolean
   :group 'less-css)
 (put 'less-css-compile-at-save 'safe-local-variable t)
@@ -127,8 +127,8 @@ default.")
 (defvar less-css-input-file-name nil
   "File name which will be compiled to CSS.
 
-When the current buffer is saved `less-css-input-file-name' file will be compiled
-to css instead of the current file.
+When the current buffer is saved `less-css-input-file-name' file
+will be compiled to css instead of the current file.
 
 Set this in order to trigger compilation of a \"master\" .less
 file which includes the current file.  The best way to set this
@@ -137,9 +137,7 @@ variables.
 
 This can be also be set to a full path, or a relative path. If
 the path is relative, it will be relative to the the current directory by
-default.
-
-")
+default.")
 
 (make-variable-buffer-local 'less-css-input-file-name)
 
