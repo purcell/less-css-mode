@@ -176,15 +176,24 @@ default.")
   "Compiles the current buffer to css using `less-css-lessc-command'."
   (interactive)
   (message "Compiling less to css")
-  (compile
-   (mapconcat 'identity
-              (append (list (less-css--maybe-shell-quote-command less-css-lessc-command))
-                      less-css-lessc-options
-                      (list (shell-quote-argument
-                             (or less-css-input-file-name buffer-file-name))
-                            ">"
-                            (shell-quote-argument (less-css--output-path))))
-              " ")))
+  (let ((compilation-buffer-name-function (lambda (mode-name) "*less-css-compilation*")))
+    (save-window-excursion
+      (with-current-buffer
+          (compile
+           (mapconcat 'identity
+                      (append (list (less-css--maybe-shell-quote-command less-css-lessc-command))
+                              less-css-lessc-options
+                              (list (shell-quote-argument
+                                     (or less-css-input-file-name buffer-file-name))
+                                    ">"
+                                    (shell-quote-argument (less-css--output-path))))
+                      " "))
+        (add-hook 'compilation-finish-functions
+                  (lambda (buf msg)
+                    (unless (string-match-p "^finished" msg)
+                      (display-buffer buf)))
+                  nil
+                  t)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Minor mode
