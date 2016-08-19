@@ -185,7 +185,6 @@ default.")
                               less-css-lessc-options
                               (list (shell-quote-argument
                                      (or less-css-input-file-name buffer-file-name))
-                                    ">"
                                     (shell-quote-argument (less-css--output-path))))
                       " "))
         (add-hook 'compilation-finish-functions
