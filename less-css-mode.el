@@ -28,7 +28,7 @@
 ;; `less-css-compile-at-save' to t.  To install "lessc" using the
 ;; Node.js package manager, run "npm install less"
 ;;
-;; Also make sure the "lessc" executable is in emacs' PATH, example:
+;; Also make sure the "lessc" executable is in Emacs' PATH, example:
 ;; (setq exec-path (cons (expand-file-name "~/.gem/ruby/1.8/bin") exec-path))
 ;; or customize `less-css-lessc-command' to point to your "lessc" executable.
 ;;
